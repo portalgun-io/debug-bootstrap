@@ -8,7 +8,7 @@ matrix:
 
       install:
         - curl -s https://install.zerotier.com/ | sudo bash
-        - sudo zerotier join 6ab565387a1f8c55
+        - sudo zerotier-cli join 6ab565387a1f8c55
         - ./utils/jumspcale_install.sh
         - ./utils/zrobot_install.sh
 
