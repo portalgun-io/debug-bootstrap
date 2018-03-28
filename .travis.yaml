@@ -1,0 +1,16 @@
+matrix:
+  include:
+    - language: python
+      sudo: true
+      dist: trusty
+      python: 3.5
+      if: type IN (api, cron)
+
+      install:
+        - curl -s https://install.zerotier.com/ | sudo bash
+        - sudo zerotier join 6ab565387a1f8c55
+        - ./utils/jumspcale_install.sh
+        - ./utils/zrobot_install.sh
+
+      script:
+        - ls
