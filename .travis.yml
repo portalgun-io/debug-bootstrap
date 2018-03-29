@@ -1,16 +1,33 @@
 matrix:
   include:
     - language: python
-      sudo: true
+      sudo: required
       dist: trusty
+
       python: 3.5
-      if: type IN (api, cron)
 
       install:
-        - curl -s https://install.zerotier.com/ | sudo bash
-        - sudo zerotier-cli join 6ab565387a1f8c55
+        - pip3 install codecov pytest pytest-cov
         - ./utils/jumspcale_install.sh
         - ./utils/zrobot_install.sh
 
       script:
-        - ls
+        - make test
+
+      after_success:
+        - codecov
+
+    - language: python
+      sudo: required
+      dist: trusty
+      if: type IN (api, cron)
+
+      python: 3.5
+
+      install:
+        - ./utils/jumspcale_install.sh
+        - ./utils/zrobot_install.sh
+
+      script:
+        - cd ./tests/integration_tests; bash travis.sh
+        - bash prepare.sh -d -s -r testsuite/ovc_tests/a_basic/accounts_tests.py
