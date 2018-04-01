@@ -7,10 +7,10 @@ matrix:
       if: type IN (api, cron)
 
       install:
+        - pip3 install python-dateutil requests
         - curl -s https://install.zerotier.com/ | sudo bash
-        - sudo zerotier-cli join 6ab565387a1f8c55
-        - ./utils/jumspcale_install.sh
-        - ./utils/zrobot_install.sh
+        - pip3 install git+https://github.com/gigforks/packet-python.git
+        - pip3 install zerotier
 
       script:
         - ls
