@@ -1,16 +1,13 @@
-matrix:
+language: python
+sudo: true
+dist: trusty
+
+jobs:
   include:
-    - language: python
-      sudo: true
-      dist: trusty
-      python: 3.5
-      if: type IN (api, cron)
+  - stage: Prepare
+      install: pip3 install packet
+      script: echo prepare
 
-      install:
-        - pip3 install python-dateutil requests
-        - curl -s https://install.zerotier.com/ | sudo bash
-        - pip3 install git+https://github.com/gigforks/packet-python.git
-        - pip3 install zerotier
-
-      script:
-        - ls
+    - stage: Test
+      script: echo test 1
+      script: echo test 2
