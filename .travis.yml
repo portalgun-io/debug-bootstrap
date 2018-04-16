@@ -4,9 +4,9 @@ dist: trusty
 jobs:
   include:
   - stage: Prepare
-      install: pip3 install python-dateutil requests argparse packet
-      script: ./functional_testing/Openvcloud/travis/setup_script.sh
-      after_failure: ./functional_testing/Openvcloud/travis/teardown_script.sh
+    install: pip3 install python-dateutil requests argparse packet
+    script: ./functional_testing/Openvcloud/travis/setup_script.sh
+    after_failure: ./functional_testing/Openvcloud/travis/teardown_script.sh
 
   - stage: Test
     script: echo test 1
