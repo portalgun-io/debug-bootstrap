@@ -1,13 +1,26 @@
 language: python
 sudo: true
 dist: trusty
+if: type IN (api, cron)
+
 jobs:
   include:
   - stage: Prepare
-    install: pip3 install python-dateutil requests argparse packet
-    script: ./functional_testing/Openvcloud/travis/setup_script.sh
-    after_failure: ./functional_testing/Openvcloud/travis/teardown_script.sh
+    python: 2.7
+    script: ./functional_testing/Openvcloud/travis/prepare.sh
+      
+  - stage: Tests
+    python: 2.7
+    script: ./functional_testing/Openvcloud/travis/runtests.sh ACL
+  
+  - stage: Tests
+    python: 2.7
+    script: ./functional_testing/Openvcloud/travis/runtests.sh OVC
 
-  - stage: Test
-    script: echo test 1
-    script: echo test 2
+  - stage: Tests
+    python: 2.7
+    script: ./functional_testing/Openvcloud/travis/runtests.sh PORTAL
+
+  - stage: Tests
+    python: 3.5
+    script: ./functional_testing/Openvcloud/travis/runtests.sh RESTFUL
