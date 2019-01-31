@@ -1,26 +1,4 @@
-language: python
-sudo: true
-dist: trusty
-if: type IN (api, cron)
-
-jobs:
-  include:
-  - stage: Prepare
-    python: 2.7
-    script: ./functional_testing/Openvcloud/travis/prepare.sh
-      
-  - stage: Tests
-    python: 2.7
-    script: ./functional_testing/Openvcloud/travis/runtests.sh ACL
-  
-  - stage: Tests
-    python: 2.7
-    script: ./functional_testing/Openvcloud/travis/runtests.sh OVC
-
-  - stage: Tests
-    python: 2.7
-    script: ./functional_testing/Openvcloud/travis/runtests.sh PORTAL
-
-  - stage: Tests
-    python: 3.5
-    script: ./functional_testing/Openvcloud/travis/runtests.sh RESTFUL
+- language: python
+      sudo: true
+      dist: xenial
+      python: 3.5
