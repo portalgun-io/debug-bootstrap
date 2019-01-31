@@ -1,4 +1,4 @@
-- language: python
-      sudo: true
-      dist: xenial
-      python: 3.5
+language: python
+sudo: true
+dist: xenial
+python: 3.5
