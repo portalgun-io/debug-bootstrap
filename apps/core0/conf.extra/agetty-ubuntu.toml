@@ -1,0 +1,35 @@
+[startup.hostname]
+name = "core.system"
+after = ["init"]
+running_delay = -1
+
+[startup.hostname.args]
+name = "hostname"
+args = ["-F", "/etc/hostname"]
+
+[startup.tty1]
+name = "core.system"
+after = ["hostname"]
+
+[startup.tty1.args]
+name = "setsid"
+args = ["-w", "/sbin/agetty", "tty1", "linux"]
+recurring_period = 1
+
+[startup.tty2]
+name = "core.system"
+after = ["hostname"]
+
+[startup.tty2.args]
+name = "setsid"
+args = ["-w", "/sbin/agetty", "tty2", "linux"]
+recurring_period = 1
+
+[startup.tty3]
+name = "core.system"
+after = ["hostname"]
+
+[startup.tty3.args]
+name = "setsid"
+args = ["-w", "/sbin/agetty", "tty3", "linux"]
+recurring_period = 1

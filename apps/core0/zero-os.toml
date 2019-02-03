@@ -1,0 +1,20 @@
+[main]
+max_jobs = 524288
+include = ["/etc/zero-os/conf"]
+log_level = "info"
+network = "/etc/zero-os/network.toml"
+
+[containers]
+max_count = 1000
+
+[logging.file]
+levels = [2, 4, 7, 8, 9]
+
+[logging.ledis]
+size = 50000 # how many backlog to keep in memory
+
+[stats]
+enabled = true
+
+[globals]
+storage = ""

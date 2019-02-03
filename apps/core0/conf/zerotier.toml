@@ -1,0 +1,54 @@
+# Start the zerotier daemon, after the networking is already configured
+# ZT home is /tmp/zt
+
+[startup."zerotier-init"]
+name = "bash"
+running_delay = -1
+after = ["init"]
+
+[startup."zerotier-init".args]
+"not(ztid)|script" = """
+ztid -out /tmp/zt
+"""
+
+"ztid|script" = """
+set -ex
+mkdir -p /tmp/zt
+
+echo {ztid} > /tmp/zt/identity.secret
+chmod 0400 /tmp/zt/identity.secret
+"""
+
+[startup.zerotier]
+name = "core.system"
+after = ["net", "zerotier-init"]
+protected = true
+
+[startup.zerotier.args]
+name = "zerotier-one"
+args = ["/tmp/zt"]
+
+[extension."zerotier.join"]
+binary = "zerotier-cli"
+args = ["-D/tmp/zt", "join", "{network}"]
+
+[extension."zerotier.leave"]
+binary = "zerotier-cli"
+args = ["-D/tmp/zt", "leave", "{network}"]
+
+[extension."zerotier.list"]
+binary = "sh"
+args = ["-c", "echo 20::: && zerotier-cli -D/tmp/zt listnetworks -j && echo :::"]
+
+[extension."zerotier.info"]
+binary = "sh"
+args = ["-c", "echo 20::: && zerotier-cli -D/tmp/zt info -j && echo :::"]
+
+[startup.zerotierkernel]
+name = "zerotier.join"
+# run only if zerotier id is set
+condition = "zerotier"
+after = ["zerotier"]
+
+[startup.zerotierkernel.args]
+network = "{zerotier}"

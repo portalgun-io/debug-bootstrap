@@ -1,0 +1,33 @@
+[startup.redis]
+name = "core.system"
+after = ["init"]
+protected = true
+
+[startup.redis.args]
+name = "redis-server"
+args = [
+    "--port", "0",
+    "--unixsocket", "/var/run/redis.sock"
+]
+
+[startup.redis-proxy]
+name = "core.system"
+condition = "or(development, support)"
+after = ["redis"]
+protected = true
+
+[startup.redis-proxy.args]
+name = "redis-proxy"
+args = [
+    "--redis", "/var/run/redis.sock",
+    "--listen", "0.0.0.0:6379"
+]
+
+[startup.redis-port]
+name = "nft.open_port"
+condition = "or(development, support)"
+
+[startup.redis-port.args]
+port=6379
+#only set interface to zt* if zerotier is set
+"zerotier| interface" = "zt*"

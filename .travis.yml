@@ -1,5 +1,20 @@
-language: python
-sudo: true
-dist: xenial
-python: 3.5
-script: pwd
+matrix:
+  include:
+    - language: python
+      sudo: true
+      dist: xenial
+      python: 3.5
+      if: type IN (api, cron)
+      before_install:
+        - source tests/before_install.sh
+        - source tests/env_vars.sh
+      install:
+        - pip3 install ipdb
+        - pip3 install requests
+        - pip3 install client/py-client/.
+        - sudo bash tests/install_zt.sh
+      before_script:
+        - #python3 -u tests/env_setup.py --zos_ip $ZOS_ip --zerotierid $ZT_NET_ID --branch $TRAVIS_BRANCH --zt_token $ZT_TOKEN --client_id $CLIENT_ID --client_secret $CLIENT_SECRET
+      script:
+        - #sudo ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p $ubuntu_port root@$ZOS_ip "cd 0-core/tests; nosetests -v -s testsuite --tc-file config.ini"
+

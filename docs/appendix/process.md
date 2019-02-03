@@ -1,0 +1,11 @@
+# Zero-OS Boot Process Flow
+- Boot physical node over iPXE. It boots a minimal image that has 0-core and needed tool for the operation of zero-os
+- 0-core gets started and does the following:
+    - Apply default nft rules and policies before network configurations are applied
+    - Start network, according to [network configuration](../config/README.md)
+    - Start the essential services that are pre-configured on the image this include
+        - libvirtd
+        - open-sshd (currently is for development, might be dropped in the future)
+        - zero-tier daemon
+        - automated monitoring routines
+    - Start listening for commands

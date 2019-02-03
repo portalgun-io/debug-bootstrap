@@ -1,0 +1,11 @@
+README.md
+0_core_client.egg-info/PKG-INFO
+0_core_client.egg-info/SOURCES.txt
+0_core_client.egg-info/dependency_links.txt
+0_core_client.egg-info/requires.txt
+0_core_client.egg-info/top_level.txt
+zeroos/__init__.py
+zeroos/core0/__init__.py
+zeroos/core0/client/__init__.py
+zeroos/core0/client/client.py
+zeroos/core0/client/typchk.py

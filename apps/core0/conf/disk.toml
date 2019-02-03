@@ -1,0 +1,20 @@
+[extension."disk.mktable"]
+binary = "parted"
+args = ["-s", "/dev/{disk}", "mktable", "{table_type}"]
+
+[extension."disk.mkpart"]
+binary = "parted"
+args = ["-s", "/dev/{disk}", "mkpart", "{part_type}", "{start}", "{end}"]
+
+[extension."disk.rmpart"]
+binary = "parted"
+args = ["-s", "/dev/{disk}", "rm", "{number}"]
+
+[extension."disk.mount"]
+binary = "mount"
+args = ["-o", "{options}", "{source}", "{target}"]
+
+[extension."disk.umount"]
+binary = "umount"
+args = ["{source}"]
+

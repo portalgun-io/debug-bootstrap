@@ -1,0 +1,14 @@
+[startup.modprobe]
+name = "bash"
+after = ["init"]
+running_delay = -1
+
+[startup.modprobe.args]
+script = """
+
+# load all required hardware modules here
+echo 'Loading kernel modules'
+modprobe e1000e
+modprobe e1000
+modprobe e100
+"""
